@@ -1,2 +1,2 @@
-# projectpingme
-My first project for my messenger
+# projecthuntermess
+My first hunter messenger
