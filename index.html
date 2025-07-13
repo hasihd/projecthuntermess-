@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PingMe Messenger</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Экран авторизации -->
+    <div id="auth-screen" class="screen active">
+        <div class="auth-container">
+            <h1><i class="fas fa-comments"></i> PingMe</h1>
+            <div class="auth-form">
+                <input type="text" id="login-username" placeholder="Имя пользователя">
+                <input type="password" id="login-password" placeholder="Пароль">
+                <button id="login-btn">Войти</button>
+                <button id="register-btn">Зарегистрироваться</button>
+                <button id="root-login-btn">Root вход</button>
+            </div>
+            <div class="auth-footer">
+                <p>Общайтесь свободно и безопасно</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Главный интерфейс -->
+    <div id="main-screen" class="screen">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-comments"></i> PingMe</h2>
+                <div class="user-info">
+                    <span id="current-user"></span>
+                    <button id="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+            
+            <div class="sidebar-tabs">
+                <button class="tab-btn active" data-tab="chat"><i class="fas fa-comment-dots"></i> Чат</button>
+                <button class="tab-btn" data-tab="news"><i class="fas fa-newspaper"></i> Новости</button>
+                <button class="tab-btn" data-tab="online"><i class="fas fa-users"></i> Онлайн</button>
+                <button class="tab-btn admin-only" data-tab="admin" style="display:none">
+                    <i class="fas fa-crown"></i> Админ-панель
+                </button>
+            </div>
+            
+            <div class="chat-list">
+                <!-- Список чатов будет здесь -->
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <!-- Чат -->
+            <div id="chat-tab" class="tab-content active">
+                <div class="chat-header">
+                    <h3 id="current-chat">Общий чат</h3>
+                </div>
+                <div class="chat-messages" id="chat-messages">
+                    <!-- Сообщения будут здесь -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="message-input" placeholder="Напишите сообщение...">
+                    <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+            
+            <!-- Новости -->
+            <div id="news-tab" class="tab-content">
+                <div class="news-header">
+                    <h3>Новостная лента</h3>
+                    <button id="add-news-btn"><i class="fas fa-plus"></i> Добавить новость</button>
+                </div>
+                <div class="news-feed" id="news-feed">
+                    <!-- Новости будут здесь -->
+                </div>
+            </div>
+            
+            <!-- Пользователи онлайн -->
+            <div id="online-tab" class="tab-content">
+                <div class="online-header">
+                    <h3>Сейчас онлайн</h3>
+                </div>
+                <div class="online-list" id="online-list">
+                    <!-- Пользователи онлайн будут здесь -->
+                </div>
+            </div>
+            
+            <!-- Админ-панель -->
+            <div id="admin-tab" class="tab-content">
+                <div class="admin-header">
+                    <h3><i class="fas fa-crown"></i> Админ-панель</h3>
+                </div>
+                <div class="admin-content">
+                    <div class="admin-section">
+                        <h4>Управление пользователями</h4>
+                        <div id="users-list">
+                            <!-- Список пользователей -->
+                        </div>
+                    </div>
+                    <div class="admin-section">
+                        <h4>Системные настройки</h4>
+                        <div class="admin-controls">
+                            <button id="clear-chat-btn">Очистить общий чат</button>
+                            <button id="reset-news-btn">Сбросить новости</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Модальное окно для новостей -->
+    <div id="news-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Добавить новость</h3>
+            <textarea id="news-text" placeholder="Что нового?"></textarea>
+            <button id="publish-news-btn">Опубликовать</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
