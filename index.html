@@ -3,123 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PingMe Messenger</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>NenChat - Мессенджер Охотников</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Экран авторизации -->
     <div id="auth-screen" class="screen active">
-        <div class="auth-container">
-            <h1><i class="fas fa-comments"></i> PingMe</h1>
-            <div class="auth-form">
-                <input type="text" id="login-username" placeholder="Имя пользователя">
-                <input type="password" id="login-password" placeholder="Пароль">
-                <button id="login-btn">Войти</button>
-                <button id="register-btn">Зарегистрироваться</button>
-                <button id="root-login-btn">Root вход</button>
+        <div class="hxh-logo">
+            <div class="hxh-title">NenChat</div>
+            <div class="hxh-subtitle">Связь через ауру Нен</div>
+        </div>
+        
+        <div class="hxh-update">
+            <div class="update-content">
+                <i class="fas fa-scroll"></i>
+                <span id="update-text">Новая система Нен-шифрования активирована! Повышена безопасность чатов.</span>
             </div>
-            <div class="auth-footer">
-                <p>Общайтесь свободно и безопасно</p>
+        </div>
+        
+        <div class="auth-container">
+            <div class="auth-form">
+                <div class="input-group">
+                    <i class="fas fa-user-ninja"></i>
+                    <input type="text" id="login-username" placeholder="Идентификатор охотника">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="login-password" placeholder="Код Нен">
+                </div>
+                <button id="login-btn"><i class="fas fa-fist-raised"></i> Активировать ауру</button>
+                <button id="root-login-btn"><i class="fas fa-crown"></i> Режим Мастера</button>
+            </div>
+            
+            <div class="hxh-info">
+                <p><strong>NenChat</strong> использует силу Нен для защиты ваших сообщений. Станьте частью Гильдии Охотников!</p>
             </div>
         </div>
     </div>
 
     <!-- Главный интерфейс -->
     <div id="main-screen" class="screen">
-        <div class="sidebar">
-            <div class="sidebar-header">
-                <h2><i class="fas fa-comments"></i> PingMe</h2>
+        <div class="hxh-header">
+            <div class="header-left">
+                <div class="hxh-icon">
+                    <i class="fas fa-dragon"></i>
+                </div>
+                <h1>NenChat</h1>
+            </div>
+            <div class="header-center">
+                <div class="hxh-update">
+                    <div class="update-content">
+                        <i class="fas fa-scroll"></i>
+                        <span id="update-text-main">Новая система Нен-шифрования активирована!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
                 <div class="user-info">
-                    <span id="current-user"></span>
+                    <span id="current-user">Охотник</span>
                     <button id="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
                 </div>
             </div>
-            
-            <div class="sidebar-tabs">
-                <button class="tab-btn active" data-tab="chat"><i class="fas fa-comment-dots"></i> Чат</button>
-                <button class="tab-btn" data-tab="news"><i class="fas fa-newspaper"></i> Новости</button>
-                <button class="tab-btn" data-tab="online"><i class="fas fa-users"></i> Онлайн</button>
-                <button class="tab-btn admin-only" data-tab="admin" style="display:none">
-                    <i class="fas fa-crown"></i> Админ-панель
-                </button>
-            </div>
-            
-            <div class="chat-list">
-                <!-- Список чатов будет здесь -->
-            </div>
         </div>
         
-        <div class="main-content">
-            <!-- Чат -->
-            <div id="chat-tab" class="tab-content active">
-                <div class="chat-header">
-                    <h3 id="current-chat">Общий чат</h3>
-                </div>
-                <div class="chat-messages" id="chat-messages">
-                    <!-- Сообщения будут здесь -->
-                </div>
-                <div class="chat-input">
-                    <input type="text" id="message-input" placeholder="Напишите сообщение...">
-                    <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+        <div class="hxh-tabs">
+            <button class="tab-btn active" data-tab="messenger"><i class="fas fa-comments"></i> Чат</button>
+            <button class="tab-btn" data-tab="hunters"><i class="fas fa-users"></i> Охотники</button>
+            <button class="tab-btn" data-tab="quests"><i class="fas fa-tasks"></i> Квесты</button>
+            <button class="tab-btn admin-only" data-tab="updates"><i class="fas fa-scroll"></i> Обновления</button>
+            <button class="tab-btn admin-only" data-tab="admin"><i class="fas fa-crown"></i> Мастер</button>
+        </div>
+        
+        <div class="hxh-content">
+            <!-- Вкладка чата -->
+            <div id="messenger-tab" class="tab-content active">
+                <div class="chat-container">
+                    <div class="chat-sidebar">
+                        <div class="chat-list">
+                            <div class="chat-item active" data-chat="general">
+                                <div class="chat-icon"><i class="fas fa-globe"></i></div>
+                                <div class="chat-info">
+                                    <div class="chat-name">Общий чат</div>
+                                    <div class="chat-preview">Добро пожаловать в NenChat!</div>
+                                </div>
+                            </div>
+                            <div class="chat-item" data-chat="hunters">
+                                <div class="chat-icon"><i class="fas fa-users"></i></div>
+                                <div class="chat-info">
+                                    <div class="chat-name">Охотники</div>
+                                    <div class="chat-preview">Гон: Готов к новому квесту!</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-main">
+                        <div class="chat-header">
+                            <h3 id="current-chat">Общий чат</h3>
+                        </div>
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message received">
+                                <div class="message-sender">Система <span class="nen-badge enhancement">Усиление</span></div>
+                                <div class="message-text">Добро пожаловать в NenChat! Ваши сообщения защищены аурой Нен.</div>
+                                <div class="message-time">12:00</div>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="message-input" placeholder="Ваше сообщение...">
+                            <button id="send-btn"><i class="fas fa-paper-plane"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Новости -->
-            <div id="news-tab" class="tab-content">
-                <div class="news-header">
-                    <h3>Новостная лента</h3>
-                    <button id="add-news-btn"><i class="fas fa-plus"></i> Добавить новость</button>
-                </div>
-                <div class="news-feed" id="news-feed">
-                    <!-- Новости будут здесь -->
+            <!-- Вкладка обновлений -->
+            <div id="updates-tab" class="tab-content">
+                <div class="updates-container">
+                    <div class="updates-header">
+                        <h3><i class="fas fa-scroll"></i> Свитки Обновлений</h3>
+                        <button id="add-update-btn"><i class="fas fa-plus"></i> Новый свиток</button>
+                    </div>
+                    
+                    <div class="update-editor">
+                        <div class="editor-header">
+                            <h4>Редактор Свитка</h4>
+                            <div class="editor-actions">
+                                <button id="save-update-btn"><i class="fas fa-save"></i> Сохранить</button>
+                                <button id="publish-update-btn"><i class="fas fa-bullhorn"></i> Опубликовать</button>
+                            </div>
+                        </div>
+                        
+                        <div class="editor-content">
+                            <input type="text" id="update-title" placeholder="Заголовок обновления" value="Новая система Нен-шифрования">
+                            <textarea id="update-content" placeholder="Описание обновления">Новая система Нен-шифрования активирована! Повышена безопасность чатов.</textarea>
+                            <div class="editor-meta">
+                                <div class="meta-item">
+                                    <label>Версия:</label>
+                                    <input type="text" id="update-version" value="1.2.0">
+                                </div>
+                                <div class="meta-item">
+                                    <label>Приоритет:</label>
+                                    <select id="update-priority">
+                                        <option value="low">Низкий</option>
+                                        <option value="medium">Средний</option>
+                                        <option value="high" selected>Высокий</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="updates-history">
+                        <h4><i class="fas fa-history"></i> Архив Свитков</h4>
+                        <div class="history-list" id="updates-list">
+                            <!-- История обновлений -->
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Пользователи онлайн -->
-            <div id="online-tab" class="tab-content">
-                <div class="online-header">
-                    <h3>Сейчас онлайн</h3>
-                </div>
-                <div class="online-list" id="online-list">
-                    <!-- Пользователи онлайн будут здесь -->
-                </div>
-            </div>
-            
-            <!-- Админ-панель -->
+            <!-- Root-панель -->
             <div id="admin-tab" class="tab-content">
-                <div class="admin-header">
-                    <h3><i class="fas fa-crown"></i> Админ-панель</h3>
-                </div>
-                <div class="admin-content">
+                <div class="admin-panel">
                     <div class="admin-section">
-                        <h4>Управление пользователями</h4>
-                        <div id="users-list">
+                        <h3><i class="fas fa-users-cog"></i> Управление Охотниками</h3>
+                        <div class="admin-controls">
+                            <button id="refresh-users-btn"><i class="fas fa-sync"></i> Обновить список</button>
+                            <button id="add-user-btn"><i class="fas fa-user-plus"></i> Добавить охотника</button>
+                        </div>
+                        <div class="users-list" id="users-list">
                             <!-- Список пользователей -->
                         </div>
                     </div>
+                    
                     <div class="admin-section">
-                        <h4>Системные настройки</h4>
-                        <div class="admin-controls">
-                            <button id="clear-chat-btn">Очистить общий чат</button>
-                            <button id="reset-news-btn">Сбросить новости</button>
+                        <h3><i class="fas fa-chart-line"></i> Статистика Системы</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-value">128</div>
+                                <div class="stat-label">Активных охотников</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">2,548</div>
+                                <div class="stat-label">Сообщений за день</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value">98%</div>
+                                <div class="stat-label">Надёжность системы</div>
+                            </div>
+                        </div>
+                        <canvas id="system-stats-chart"></canvas>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h3><i class="fas fa-shield-alt"></i> Безопасность</h3>
+                        <div class="security-settings">
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" id="nen-encryption" checked>
+                                    <span>Шифрование Нен</span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" id="activity-log" checked>
+                                    <span>Журнал активности</span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" id="auto-backup">
+                                    <span>Автоматическое резервное копирование</span>
+                                </label>
+                            </div>
+                            <button id="save-settings-btn"><i class="fas fa-save"></i> Сохранить настройки</button>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h3><i class="fas fa-history"></i> История Действий</h3>
+                        <div class="actions-list" id="actions-list">
+                            <!-- История действий -->
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    
-    <!-- Модальное окно для новостей -->
-    <div id="news-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h3>Добавить новость</h3>
-            <textarea id="news-text" placeholder="Что нового?"></textarea>
-            <button id="publish-news-btn">Опубликовать</button>
+            
+            <!-- Другие вкладки -->
         </div>
     </div>
 
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>
