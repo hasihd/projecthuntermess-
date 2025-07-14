@@ -15,15 +15,14 @@
             <div class="hxh-subtitle">Связь через ауру Нен</div>
         </div>
         
-        <div class="hxh-update">
-            <div class="update-content">
-                <i class="fas fa-scroll"></i>
-                <span id="update-text">Новая система Нен-шифрования активирована! Повышена безопасность чатов.</span>
-            </div>
-        </div>
-        
         <div class="auth-container">
-            <div class="auth-form">
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" data-tab="login">Вход</button>
+                <button class="auth-tab-btn" data-tab="register">Регистрация</button>
+            </div>
+            
+            <!-- Форма входа -->
+            <div id="login-form" class="auth-form active">
                 <div class="input-group">
                     <i class="fas fa-user-ninja"></i>
                     <input type="text" id="login-username" placeholder="Идентификатор охотника">
@@ -34,6 +33,27 @@
                 </div>
                 <button id="login-btn"><i class="fas fa-fist-raised"></i> Активировать ауру</button>
                 <button id="root-login-btn"><i class="fas fa-crown"></i> Режим Мастера</button>
+            </div>
+            
+            <!-- Форма регистрации -->
+            <div id="register-form" class="auth-form">
+                <div class="input-group">
+                    <i class="fas fa-user-plus"></i>
+                    <input type="text" id="register-username" placeholder="Идентификатор охотника">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="register-email" placeholder="Почта">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="register-password" placeholder="Код Нен">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-key"></i>
+                    <input type="password" id="register-confirm" placeholder="Подтвердите код Нен">
+                </div>
+                <button id="register-btn"><i class="fas fa-user-shield"></i> Зарегистрироваться</button>
             </div>
             
             <div class="hxh-info">
@@ -52,16 +72,15 @@
                 <h1>NenChat</h1>
             </div>
             <div class="header-center">
-                <div class="hxh-update">
-                    <div class="update-content">
-                        <i class="fas fa-scroll"></i>
-                        <span id="update-text-main">Новая система Нен-шифрования активирована!</span>
-                    </div>
+                <div class="search-container">
+                    <input type="text" id="hunter-search" placeholder="Поиск охотников...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
                 </div>
             </div>
             <div class="header-right">
                 <div class="user-info">
                     <span id="current-user">Охотник</span>
+                    <span id="user-role-badge" class="role-badge hunter">Охотник</span>
                     <button id="logout-btn"><i class="fas fa-sign-out-alt"></i></button>
                 </div>
             </div>
@@ -70,8 +89,8 @@
         <div class="hxh-tabs">
             <button class="tab-btn active" data-tab="messenger"><i class="fas fa-comments"></i> Чат</button>
             <button class="tab-btn" data-tab="hunters"><i class="fas fa-users"></i> Охотники</button>
-            <button class="tab-btn" data-tab="quests"><i class="fas fa-tasks"></i> Квесты</button>
-            <button class="tab-btn admin-only" data-tab="updates"><i class="fas fa-scroll"></i> Обновления</button>
+            <button class="tab-btn" data-tab="news"><i class="fas fa-newspaper"></i> Новости</button>
+            <button class="tab-btn support-only" data-tab="support"><i class="fas fa-headset"></i> Поддержка</button>
             <button class="tab-btn admin-only" data-tab="admin"><i class="fas fa-crown"></i> Мастер</button>
         </div>
         
@@ -95,6 +114,13 @@
                                     <div class="chat-preview">Гон: Готов к новому квесту!</div>
                                 </div>
                             </div>
+                            <div class="chat-item support-chat" data-chat="support">
+                                <div class="chat-icon"><i class="fas fa-headset"></i></div>
+                                <div class="chat-info">
+                                    <div class="chat-name">Поддержка</div>
+                                    <div class="chat-preview">Техническая помощь</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="chat-main">
@@ -116,48 +142,48 @@
                 </div>
             </div>
             
-            <!-- Вкладка обновлений -->
-            <div id="updates-tab" class="tab-content">
-                <div class="updates-container">
-                    <div class="updates-header">
-                        <h3><i class="fas fa-scroll"></i> Свитки Обновлений</h3>
-                        <button id="add-update-btn"><i class="fas fa-plus"></i> Новый свиток</button>
-                    </div>
-                    
-                    <div class="update-editor">
-                        <div class="editor-header">
-                            <h4>Редактор Свитка</h4>
-                            <div class="editor-actions">
-                                <button id="save-update-btn"><i class="fas fa-save"></i> Сохранить</button>
-                                <button id="publish-update-btn"><i class="fas fa-bullhorn"></i> Опубликовать</button>
-                            </div>
-                        </div>
-                        
-                        <div class="editor-content">
-                            <input type="text" id="update-title" placeholder="Заголовок обновления" value="Новая система Нен-шифрования">
-                            <textarea id="update-content" placeholder="Описание обновления">Новая система Нен-шифрования активирована! Повышена безопасность чатов.</textarea>
-                            <div class="editor-meta">
-                                <div class="meta-item">
-                                    <label>Версия:</label>
-                                    <input type="text" id="update-version" value="1.2.0">
-                                </div>
-                                <div class="meta-item">
-                                    <label>Приоритет:</label>
-                                    <select id="update-priority">
-                                        <option value="low">Низкий</option>
-                                        <option value="medium">Средний</option>
-                                        <option value="high" selected>Высокий</option>
-                                    </select>
-                                </div>
-                            </div>
+            <!-- Вкладка охотников -->
+            <div id="hunters-tab" class="tab-content">
+                <div class="hunters-container">
+                    <div class="hunters-header">
+                        <h3><i class="fas fa-users"></i> Список Охотников</h3>
+                        <div class="hunters-search">
+                            <input type="text" id="hunters-search-input" placeholder="Поиск охотников...">
+                            <button id="hunters-search-btn"><i class="fas fa-search"></i></button>
                         </div>
                     </div>
-                    
-                    <div class="updates-history">
-                        <h4><i class="fas fa-history"></i> Архив Свитков</h4>
-                        <div class="history-list" id="updates-list">
-                            <!-- История обновлений -->
-                        </div>
+                    <div class="hunters-list" id="hunters-list">
+                        <!-- Список охотников -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Вкладка новостей -->
+            <div id="news-tab" class="tab-content">
+                <div class="news-container">
+                    <div class="news-header">
+                        <h3><i class="fas fa-newspaper"></i> Новости Гильдии</h3>
+                    </div>
+                    <div class="news-list" id="news-list">
+                        <!-- Список новостей -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Вкладка поддержки -->
+            <div id="support-tab" class="tab-content">
+                <div class="support-container">
+                    <div class="support-header">
+                        <h3><i class="fas fa-headset"></i> Техническая Поддержка</h3>
+                    </div>
+                    <div class="support-tickets" id="support-tickets">
+                        <!-- Список тикетов -->
+                    </div>
+                    <div class="support-form">
+                        <h4>Создать новый тикет</h4>
+                        <input type="text" id="ticket-title" placeholder="Тема тикета">
+                        <textarea id="ticket-content" placeholder="Опишите вашу проблему"></textarea>
+                        <button id="create-ticket-btn"><i class="fas fa-plus"></i> Создать тикет</button>
                     </div>
                 </div>
             </div>
@@ -170,6 +196,7 @@
                         <div class="admin-controls">
                             <button id="refresh-users-btn"><i class="fas fa-sync"></i> Обновить список</button>
                             <button id="add-user-btn"><i class="fas fa-user-plus"></i> Добавить охотника</button>
+                            <button id="ban-user-btn"><i class="fas fa-ban"></i> Заблокировать</button>
                         </div>
                         <div class="users-list" id="users-list">
                             <!-- Список пользователей -->
@@ -221,15 +248,41 @@
                     </div>
                     
                     <div class="admin-section">
-                        <h3><i class="fas fa-history"></i> История Действий</h3>
-                        <div class="actions-list" id="actions-list">
-                            <!-- История действий -->
+                        <h3><i class="fas fa-user-tag"></i> Управление Ролями</h3>
+                        <div class="roles-management">
+                            <div class="input-group">
+                                <select id="role-user-select">
+                                    <option value="">Выберите охотника</option>
+                                </select>
+                                <select id="role-select">
+                                    <option value="hunter">Охотник</option>
+                                    <option value="support">Поддержка</option>
+                                    <option value="admin">Администратор</option>
+                                </select>
+                                <button id="assign-role-btn"><i class="fas fa-save"></i> Назначить роль</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-section">
+                        <h3><i class="fas fa-history"></i> Логи Системы</h3>
+                        <div class="logs-container">
+                            <div class="logs-controls">
+                                <select id="log-type">
+                                    <option value="all">Все логи</option>
+                                    <option value="auth">Авторизация</option>
+                                    <option value="messages">Сообщения</option>
+                                    <option value="system">Система</option>
+                                </select>
+                                <button id="refresh-logs-btn"><i class="fas fa-sync"></i> Обновить</button>
+                            </div>
+                            <div class="logs-list" id="logs-list">
+                                <!-- Список логов -->
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Другие вкладки -->
         </div>
     </div>
 

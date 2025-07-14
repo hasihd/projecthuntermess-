@@ -8,6 +8,9 @@
     --nen-enhancement: #e63946;
     --nen-emission: #3a86ff;
     --nen-manipulation: #ff9e00;
+    --role-hunter: #3a86ff;
+    --role-support: #4caf50;
+    --role-admin: #ffc107;
 }
 
 * {
@@ -62,40 +65,42 @@ body {
     opacity: 0.9;
 }
 
-/* Баннер обновлений */
-.hxh-update {
-    background: rgba(178, 31, 31, 0.7);
-    border: 2px solid var(--hxh-accent);
-    border-radius: 10px;
-    margin: 20px auto;
-    padding: 12px;
-    text-align: center;
-    max-width: 90%;
-}
-
-.update-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.update-content i {
-    color: var(--hxh-accent);
-    font-size: 1.2rem;
-}
-
 /* Авторизация */
 .auth-container {
     padding: 30px 20px;
     position: relative;
 }
 
+.auth-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--hxh-accent);
+}
+
+.auth-tab-btn {
+    padding: 10px 20px;
+    background: none;
+    border: none;
+    color: var(--hxh-light);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.auth-tab-btn.active {
+    background: var(--hxh-accent);
+    color: var(--hxh-dark);
+    font-weight: bold;
+}
+
 .auth-form {
+    display: none;
     max-width: 500px;
     margin: 0 auto;
+}
+
+.auth-form.active {
+    display: block;
 }
 
 .input-group {
@@ -153,6 +158,11 @@ body {
     color: white;
 }
 
+#register-btn {
+    background: linear-gradient(to right, var(--hxh-primary), #4caf50);
+    color: white;
+}
+
 .auth-form button:hover {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(253, 183, 49, 0.5);
@@ -202,11 +212,55 @@ body {
     color: var(--hxh-accent);
 }
 
+.search-container {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 5px 10px;
+    border: 1px solid var(--hxh-accent);
+}
+
+.search-container input {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px;
+    width: 250px;
+}
+
+.search-container button {
+    background: none;
+    border: none;
+    color: var(--hxh-accent);
+    cursor: pointer;
+}
+
 .user-info {
     display: flex;
     align-items: center;
     gap: 12px;
     font-size: 1rem;
+}
+
+.role-badge {
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: var(--hxh-dark);
+}
+
+.role-badge.hunter {
+    background-color: var(--role-hunter);
+}
+
+.role-badge.support {
+    background-color: var(--role-support);
+}
+
+.role-badge.admin {
+    background-color: var(--role-admin);
 }
 
 #logout-btn {
@@ -312,6 +366,10 @@ body {
 .chat-item.active {
     background: rgba(253, 183, 49, 0.2);
     border-color: var(--hxh-accent);
+}
+
+.support-chat {
+    border-left: 3px solid var(--role-support);
 }
 
 .chat-icon {
@@ -462,15 +520,15 @@ body {
     cursor: pointer;
 }
 
-/* Вкладка обновлений */
-.updates-container {
+/* Вкладка охотников */
+.hunters-container {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.updates-header {
+.hunters-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -478,161 +536,285 @@ body {
     border-bottom: 1px solid var(--hxh-accent);
 }
 
-#add-update-btn {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 8px;
-    background: linear-gradient(to right, var(--hxh-primary), var(--hxh-secondary));
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+.hunters-search {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 0.9rem;
-}
-
-.update-editor {
-    background: rgba(26, 42, 108, 0.5);
-    border-radius: 10px;
-    border: 1px solid var(--hxh-accent);
-    padding: 15px;
-    margin-bottom: 15px;
-}
-
-.editor-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.editor-actions {
-    display: flex;
-    gap: 8px;
-}
-
-.editor-actions button {
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    background: rgba(253, 183, 49, 0.3);
-    color: var(--hxh-light);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-}
-
-.editor-actions button:hover {
-    background: var(--hxh-accent);
-    color: var(--hxh-dark);
-}
-
-#update-title, #update-content {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid var(--hxh-accent);
     background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 5px 10px;
+    border: 1px solid var(--hxh-accent);
+}
+
+.hunters-search input {
+    background: transparent;
+    border: none;
     color: white;
-    margin-bottom: 10px;
-}
-
-#update-title {
-    font-size: 1.1rem;
-    font-weight: bold;
-}
-
-#update-content {
-    height: 120px;
-    resize: vertical;
-}
-
-.editor-meta {
-    display: flex;
-    gap: 15px;
-}
-
-.meta-item {
-    flex: 1;
-}
-
-.meta-item label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
-
-.meta-item input, .meta-item select {
-    width: 100%;
     padding: 8px;
-    border-radius: 6px;
-    border: 1px solid var(--hxh-accent);
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    width: 200px;
 }
 
-.updates-history {
-    background: rgba(13, 27, 42, 0.5);
-    border-radius: 10px;
-    border: 1px solid var(--hxh-accent);
-    padding: 15px;
+.hunters-search button {
+    background: none;
+    border: none;
+    color: var(--hxh-accent);
+    cursor: pointer;
+}
+
+.hunters-list {
     flex: 1;
-}
-
-.history-list {
-    margin-top: 12px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    max-height: 300px;
+    gap: 10px;
     overflow-y: auto;
 }
 
-.update-item {
+.hunter-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px solid var(--hxh-accent);
+}
+
+.hunter-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--hxh-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--hxh-dark);
+}
+
+.hunter-info {
+    flex: 1;
+}
+
+.hunter-name {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.hunter-role {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.hunter-role.hunter {
+    background-color: var(--role-hunter);
+    color: white;
+}
+
+.hunter-role.support {
+    background-color: var(--role-support);
+    color: white;
+}
+
+.hunter-role.admin {
+    background-color: var(--role-admin);
+    color: var(--hxh-dark);
+}
+
+.hunter-status {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.hunter-actions {
+    display: flex;
+    gap: 5px;
+}
+
+.hunter-action-btn {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Вкладка новостей */
+.news-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.news-header {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--hxh-accent);
+}
+
+.news-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+}
+
+.news-item {
     background: rgba(26, 42, 108, 0.5);
     border-radius: 8px;
-    padding: 12px;
+    padding: 15px;
     border: 1px solid var(--hxh-accent);
-    transition: all 0.3s;
 }
 
-.update-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 3px 10px rgba(253, 183, 49, 0.2);
-}
-
-.update-header {
+.news-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
-.update-title {
-    font-weight: bold;
+.news-title {
+    color: var(--hxh-accent);
+    font-size: 1.2rem;
+}
+
+.news-date {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.news-content {
+    margin-bottom: 10px;
+}
+
+.news-footer {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* Вкладка поддержки */
+.support-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.support-header {
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--hxh-accent);
+}
+
+.support-tickets {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+}
+
+.ticket-item {
+    background: rgba(26, 42, 108, 0.5);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid var(--hxh-accent);
+}
+
+.ticket-item.open {
+    border-left: 3px solid var(--role-support);
+}
+
+.ticket-item.closed {
+    border-left: 3px solid #888;
+    opacity: 0.7;
+}
+
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.ticket-title {
     color: var(--hxh-accent);
     font-size: 1.1rem;
 }
 
-.update-date {
+.ticket-status {
     font-size: 0.8rem;
-    opacity: 0.7;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: bold;
 }
 
-.update-content-item {
-    margin-bottom: 8px;
-    font-size: 0.95rem;
+.ticket-status.open {
+    background-color: var(--role-support);
+    color: white;
 }
 
-.update-footer {
+.ticket-status.closed {
+    background-color: #888;
+    color: white;
+}
+
+.ticket-content {
+    margin-bottom: 10px;
+}
+
+.ticket-footer {
     display: flex;
     justify-content: space-between;
     font-size: 0.8rem;
     opacity: 0.7;
+}
+
+.support-form {
+    background: rgba(26, 42, 108, 0.5);
+    border-radius: 8px;
+    padding: 15px;
+    border: 1px solid var(--hxh-accent);
+    margin-top: 15px;
+}
+
+.support-form h4 {
+    margin-bottom: 10px;
+    color: var(--hxh-accent);
+}
+
+.support-form input,
+.support-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    border: 1px solid var(--hxh-accent);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.support-form textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+#create-ticket-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: var(--role-support);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
 }
 
 /* Root-панель */
@@ -713,8 +895,39 @@ body {
     font-weight: bold;
 }
 
-.user-name {
+.user-info {
     flex: 1;
+}
+
+.user-name {
+    margin-bottom: 3px;
+}
+
+.user-role {
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.user-role.hunter {
+    background-color: var(--role-hunter);
+    color: white;
+}
+
+.user-role.support {
+    background-color: var(--role-support);
+    color: white;
+}
+
+.user-role.admin {
+    background-color: var(--role-admin);
+    color: var(--hxh-dark);
+}
+
+.user-status {
+    font-size: 0.8rem;
+    opacity: 0.8;
 }
 
 .user-actions {
@@ -796,7 +1009,67 @@ body {
     cursor: pointer;
 }
 
-.actions-list {
+.roles-management {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.roles-management .input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.roles-management select {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--hxh-accent);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+#assign-role-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    background: var(--hxh-accent);
+    color: var(--hxh-dark);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.logs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.logs-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.logs-controls select {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid var(--hxh-accent);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+#refresh-logs-btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 6px;
+    background: rgba(253, 183, 49, 0.3);
+    color: var(--hxh-light);
+    cursor: pointer;
+}
+
+.logs-list {
     max-height: 200px;
     overflow-y: auto;
     display: flex;
@@ -804,7 +1077,7 @@ body {
     gap: 8px;
 }
 
-.action-item {
+.log-item {
     padding: 10px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 6px;
@@ -814,24 +1087,61 @@ body {
     align-items: center;
 }
 
-.action-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--hxh-accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.log-type {
     font-size: 0.8rem;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+.log-type.auth {
+    background-color: #3a86ff;
+    color: white;
+}
+
+.log-type.messages {
+    background-color: #fdb731;
     color: var(--hxh-dark);
 }
 
+.log-type.system {
+    background-color: #e63946;
+    color: white;
+}
+
+.log-type.admin {
+    background-color: #ffc107;
+    color: var(--hxh-dark);
+}
+
+.log-type.support {
+    background-color: #4caf50;
+    color: white;
+}
+
+.log-message {
+    flex: 1;
+}
+
+.log-time {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
 /* Специальные классы */
+.support-only {
+    display: none;
+}
+
 .admin-only {
     display: none;
 }
 
 .root-user .admin-only {
+    display: flex;
+}
+
+.support-user .support-only {
     display: flex;
 }
 
@@ -841,6 +1151,51 @@ body {
     border-radius: 10px;
     font-size: 0.7rem;
     font-weight: bold;
+}
+
+/* Анимации для сообщений */
+@keyframes floatIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message {
+  animation: floatIn 0.3s ease-out;
+}
+
+/* Эффект для системных сообщений */
+.system-message {
+  background: linear-gradient(135deg, var(--hxh-primary), rgba(26, 42, 108, 0.7));
+  border-left: 3px solid var(--hxh-accent);
+}
+
+/* Эффект при наведении на чат */
+.chat-item:hover {
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(253, 183, 49, 0.2);
+}
+
+/* Анимация для значков Нен */
+.nen-badge {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; text-shadow: 0 0 5px currentColor; }
+  100% { opacity: 0.8; }
+}
+
+/* Эффект для активного чата */
+.chat-item.active {
+  box-shadow: 0 0 10px var(--hxh-accent);
+  border: 1px solid var(--hxh-accent);
 }
 
 /* Адаптивность */
