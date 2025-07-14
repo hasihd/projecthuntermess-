@@ -3,9 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NenChat - Мессенджер Охотников</title>
+    <title>NenChat - Форум Гильдии Охотников</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: url('https://i.imgur.com/JtQJbZS.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .hxh-title {
+            font-family: 'Press Start 2P', cursive;
+        }
+        .message {
+            animation: floatIn 0.3s ease-out;
+        }
+        @keyframes floatIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .nen-badge {
+            animation: nen-pulse 2s infinite;
+        }
+        @keyframes nen-pulse {
+            0% { box-shadow: 0 0 5px currentColor; }
+            50% { box-shadow: 0 0 15px currentColor; }
+            100% { box-shadow: 0 0 5px currentColor; }
+        }
+        .chat-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(253, 183, 49, 0.2);
+        }
+        .chat-item.active {
+            box-shadow: 0 0 10px var(--hxh-accent);
+            border: 1px solid var(--hxh-accent);
+        }
+    </style>
 </head>
 <body>
     <!-- Экран авторизации -->
@@ -32,7 +68,7 @@
                     <input type="password" id="login-password" placeholder="Код Нен">
                 </div>
                 <button id="login-btn"><i class="fas fa-fist-raised"></i> Активировать ауру</button>
-                <button id="root-login-btn"><i class="fas fa-crown"></i> Режим Мастера</button>
+                <button id="root-login-btn"><i class="fas fa-crown"></i> Режим Созвездия</button>
             </div>
             
             <!-- Форма регистрации -->
@@ -87,16 +123,41 @@
         </div>
         
         <div class="hxh-tabs">
-            <button class="tab-btn active" data-tab="messenger"><i class="fas fa-comments"></i> Чат</button>
+            <button class="tab-btn active" data-tab="forum"><i class="fas fa-home"></i> Форум</button>
+            <button class="tab-btn" data-tab="messenger"><i class="fas fa-comments"></i> Чат</button>
             <button class="tab-btn" data-tab="hunters"><i class="fas fa-users"></i> Охотники</button>
-            <button class="tab-btn" data-tab="news"><i class="fas fa-newspaper"></i> Новости</button>
             <button class="tab-btn support-only" data-tab="support"><i class="fas fa-headset"></i> Поддержка</button>
-            <button class="tab-btn admin-only" data-tab="admin"><i class="fas fa-crown"></i> Мастер</button>
+            <button class="tab-btn admin-only" data-tab="admin"><i class="fas fa-crown"></i> Созвездие</button>
         </div>
         
         <div class="hxh-content">
+            <!-- Вкладка форума -->
+            <div id="forum-tab" class="tab-content active">
+                <div class="forum-container">
+                    <div class="news-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-newspaper"></i> Новости Гильдии</h3>
+                            <button class="add-news-btn admin-only"><i class="fas fa-plus"></i> Добавить новость</button>
+                        </div>
+                        <div class="news-list" id="news-list">
+                            <!-- Список новостей -->
+                        </div>
+                    </div>
+                    
+                    <div class="announcements-section">
+                        <div class="section-header">
+                            <h3><i class="fas fa-bullhorn"></i> Анонсы</h3>
+                            <button class="add-announcement-btn admin-only"><i class="fas fa-plus"></i> Добавить анонс</button>
+                        </div>
+                        <div class="announcements-list" id="announcements-list">
+                            <!-- Список анонсов -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Вкладка чата -->
-            <div id="messenger-tab" class="tab-content active">
+            <div id="messenger-tab" class="tab-content">
                 <div class="chat-container">
                     <div class="chat-sidebar">
                         <div class="chat-list">
@@ -121,18 +182,23 @@
                                     <div class="chat-preview">Техническая помощь</div>
                                 </div>
                             </div>
+                            <div class="private-chats-header">
+                                <i class="fas fa-lock"></i> Личные чаты
+                            </div>
+                            <div class="private-chats-list" id="private-chats-list">
+                                <!-- Список личных чатов -->
+                            </div>
                         </div>
                     </div>
                     <div class="chat-main">
                         <div class="chat-header">
                             <h3 id="current-chat">Общий чат</h3>
+                            <div class="chat-actions">
+                                <button class="clear-chat-btn admin-only"><i class="fas fa-trash"></i> Очистить чат</button>
+                            </div>
                         </div>
                         <div class="chat-messages" id="chat-messages">
-                            <div class="message received">
-                                <div class="message-sender">Система <span class="nen-badge enhancement">Усиление</span></div>
-                                <div class="message-text">Добро пожаловать в NenChat! Ваши сообщения защищены аурой Нен.</div>
-                                <div class="message-time">12:00</div>
-                            </div>
+                            <!-- Сообщения будут загружены здесь -->
                         </div>
                         <div class="chat-input">
                             <input type="text" id="message-input" placeholder="Ваше сообщение...">
@@ -154,18 +220,6 @@
                     </div>
                     <div class="hunters-list" id="hunters-list">
                         <!-- Список охотников -->
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Вкладка новостей -->
-            <div id="news-tab" class="tab-content">
-                <div class="news-container">
-                    <div class="news-header">
-                        <h3><i class="fas fa-newspaper"></i> Новости Гильдии</h3>
-                    </div>
-                    <div class="news-list" id="news-list">
-                        <!-- Список новостей -->
                     </div>
                 </div>
             </div>
@@ -257,7 +311,7 @@
                                 <select id="role-select">
                                     <option value="hunter">Охотник</option>
                                     <option value="support">Поддержка</option>
-                                    <option value="admin">Администратор</option>
+                                    <option value="admin">Созвездие</option>
                                 </select>
                                 <button id="assign-role-btn"><i class="fas fa-save"></i> Назначить роль</button>
                             </div>
@@ -283,6 +337,40 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Модальные окна -->
+    <div id="news-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modal-title">Добавить новость</h3>
+            <input type="text" id="news-title" placeholder="Заголовок новости">
+            <textarea id="news-content" placeholder="Содержание новости"></textarea>
+            <button id="save-news-btn"><i class="fas fa-save"></i> Сохранить</button>
+        </div>
+    </div>
+
+    <div id="ticket-reply-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Ответить на тикет</h3>
+            <div id="ticket-view">
+                <!-- Просмотр тикета -->
+            </div>
+            <textarea id="ticket-reply-content" placeholder="Ваш ответ..."></textarea>
+            <button id="send-ticket-reply"><i class="fas fa-reply"></i> Отправить ответ</button>
+        </div>
+    </div>
+
+    <div id="private-chat-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Создать личный чат</h3>
+            <select id="private-chat-user">
+                <option value="">Выберите охотника</option>
+            </select>
+            <button id="create-private-chat-btn"><i class="fas fa-comment"></i> Создать чат</button>
         </div>
     </div>
 
